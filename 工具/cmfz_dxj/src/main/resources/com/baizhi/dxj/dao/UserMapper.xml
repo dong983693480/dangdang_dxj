@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dxj.dao.UserMapper">
+  <select id="queryUserAll" resultType="user">
+    select id,phone,password,salt,status,pic_img picImg,name,legal_name legalName,
+    sex,city,sign,reg_time regTime,guru_id guruId
+     from user limit ${(page-1)*count},#{count}
+  </select>
+  <update id="updateUser">
+    update user
+    <set>
+      <if test="phone!=null">
+        phone=#{phone},
+      </if>
+      <if test="password!=null">
+        password=#{password},
+      </if>
+      <if test="salt!=null">
+        salt=#{salt},
+      </if>
+      <if test="status!=null">
+        status=#{status},
+      </if>
+      <if test="picImg!=null">
+        pic_img=#{picImg},
+      </if>
+      <if test="name!=null">
+        name=#{name},
+      </if>
+      <if test="legalName!=null">
+        legal_name=#{legalName},
+      </if>
+      <if test="sex!=null">
+        sex=#{sex},
+      </if>
+      <if test="city!=null">
+        city=#{city},
+      </if>
+      <if test="sign!=null">
+        sign=#{sign},
+      </if>
+      <if test="regTime!=null">
+        reg_time=#{regTime},
+      </if>
+      <if test="guruId!=null">
+        guru_id=#{guruId},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+  <select id="countUser" resultType="int">
+    select count(*) from user
+  </select>
+</mapper>

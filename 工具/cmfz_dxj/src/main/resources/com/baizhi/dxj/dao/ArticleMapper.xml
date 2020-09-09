@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dxj.dao.ArticleMapper">
+    <select id="queryArticleAll" resultType="Article">
+    select id,title,upload_time uploadTime,guru_name guruName,
+     content,guru_id guruId,img
+     from article limit ${(page-1)*count},#{count}
+  </select>
+    <update id="updateArticle">
+        update article
+        <set>
+            <if test="title!=null">
+                title=#{title},
+            </if>
+            <if test="uploadTime!=null">
+                upload_time=#{uploadTime},
+            </if>
+            <if test="guruName!=null">
+                guru_name=#{guruName},
+            </if>
+            <if test="content!=null">
+                content=#{content},
+            </if>
+            <if test="guruId!=null">
+                guru_id=#{guruId},
+            </if>
+            <if test="img!=null">
+                img=#{img},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <select id="countArticle" resultType="int">
+    select count(*) from article
+  </select>
+    <delete id="deleteArticle" parameterType="String">
+        delete from article where id=#{id}
+    </delete>
+</mapper>

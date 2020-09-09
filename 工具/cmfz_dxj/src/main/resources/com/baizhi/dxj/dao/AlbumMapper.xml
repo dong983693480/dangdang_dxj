@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dxj.dao.AlbumMapper">
+    <select id="queryAll1" resultType="Album">
+    select id,title,cover_img coverImg,score,
+     author,broadcast,count,content,pub_date pubDate
+     from album limit ${(page-1)*count},#{count}
+  </select>
+    <select id="count1" resultType="int">
+    select count(*) from album
+  </select>
+    <insert id="add1" parameterType="Album">
+    insert into album(id,title,cover_img,score,author,broadcast,count,content,pub_date)
+     values (#{id},#{title},#{coverImg},#{score},#{author},#{broadcast},#{count},#{content},#{pubDate})
+  </insert>
+    <update id="update1">
+        update album
+        <set>
+            <if test="title!=null">
+                title=#{title},
+            </if>
+            <if test="coverImg!=null">
+                cover_img=#{coverImg},
+            </if>
+            <if test="score!=null">
+                score=#{score},
+            </if>
+            <if test="author!=null">
+                author=#{author},
+            </if>
+            <if test="broadcast!=null">
+                broadcast=#{broadcast},
+            </if>
+            <if test="count!=null">
+                count=#{count},
+            </if>
+            <if test="content!=null">
+                content=#{content},
+            </if>
+            <if test="pubDate!=null">
+                pub_date=#{pubDate},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="del1" parameterType="String">
+    delete from album where id=#{id}
+  </delete>
+</mapper>

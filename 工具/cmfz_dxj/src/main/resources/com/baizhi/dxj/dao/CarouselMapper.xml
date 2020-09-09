@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dxj.dao.CarouselMapper">
+  <select id="queryAll" resultType="Carousel">
+    select * from carousel limit ${(page-1)*count},#{count}
+  </select>
+  <select id="count" resultType="int">
+    select count(*) from carousel
+  </select>
+  <insert id="add" parameterType="Carousel">
+    insert into carousel(id,src,description,struts,createdate) values (#{id},#{src},#{description},#{struts},#{createdate})
+  </insert>
+  <update id="update">
+    update carousel
+    <set>
+      <if test="src!=null">
+        src=#{src},
+      </if>
+      <if test="description!=null">
+        description=#{description},
+      </if>
+      <if test="struts!=null">
+        struts=#{struts},
+      </if>
+      <if test="createdate!=null">
+        createdate=#{createdate},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+  <delete id="del" parameterType="String">
+    delete from carousel where id=#{id}
+  </delete>
+</mapper>
