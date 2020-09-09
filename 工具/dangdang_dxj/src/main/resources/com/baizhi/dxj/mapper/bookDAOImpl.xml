@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dxj.dao.bookDAO">
+	
+	<select id="selectbookAll" resultType="d_book">
+		select * from d_book
+	</select>
+	
+	<select id="mh" resultType="d_book">
+		select * from d_book
+		<where>
+			<if test="xx=='book_name'">
+				book_name like '%'||#{name}||'%' 
+			</if>
+			<if test="xx=='author'">
+				author like '%'||#{name}||'%'
+			</if>
+			<if test="xx=='company'">
+				company like '%'||#{name}||'%'
+			</if>
+		</where>
+	</select>
+	<insert id="addbook" parameterType="d_book">
+		insert into d_book values(#{id},#{book_name},#{author},#{price},
+		#{dd_price},#{company},#{publish_time},#{public_count},#{isbn},#{print_time},
+		#{print_count},0,#{cate_id},#{e_recommend},#{src},
+		#{edition},#{sizes},#{paper},#{pack},#{wordCount},#{pagination},
+		#{book_description},#{aboutTheAuthor},#{baseDirectory},#{pressReview})
+	</insert>
+	<delete id="deleteBook" parameterType="String">
+		delete from d_book where id=#{id}
+	</delete>
+	<select id="selectej" resultType="d_category">
+		select * from d_category where levels=2
+	</select>
+	<update id="updateBook" parameterType="d_book">
+		update d_book set book_name=#{book_name},author=#{author},price=#{price},
+		dd_price=#{dd_price},company=#{company},publish_time=#{publish_time},public_count=#{public_count},
+		isbn=#{isbn},print_time=#{print_time},print_count=#{print_count},sale_count=#{sale_count},cate_id=#{cate_id},e_recommend=#{e_recommend},src=#{src},
+		edition=#{edition},sizes=#{sizes},paper=#{paper},pack=#{pack},wordCount=#{wordCount},pagination=#{pagination},
+		book_description=#{book_description},aboutTheAuthor=#{aboutTheAuthor},baseDirectory=#{baseDirectory},pressReview=#{pressReview}
+		where id=#{id}
+	</update>
+	<select id="selectById" resultType="d_book" parameterType="String">
+		 select * from d_book where id=#{id}
+	</select>
+	<select id="look1" parameterType="String" resultType="d_category">
+		select * from d_category where id=#{id}
+	</select>
+</mapper>

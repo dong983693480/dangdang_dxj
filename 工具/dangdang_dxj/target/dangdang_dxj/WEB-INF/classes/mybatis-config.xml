@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!--  二级缓存  默认是false；关闭二级缓存   -->
+	<!-- <settings>
+
+    <setting name="lacalCacheScope" value="STATEMENT"  /> 
+
+	</settings> -->
+	<!--  别名  -->
+	<typeAliases>
+	<package name="com.baizhi.dxj.entity"/>
+</typeAliases>
+	<environments default="dl">
+		<environment id="dl">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="hr"/>
+				<property name="password" value="hr"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/baizhi/dxj/mapper/adminDAOImpl.xml"/>
+		<mapper resource="com/baizhi/dxj/mapper/categoryDAOImpl.xml"/>
+		<mapper resource="com/baizhi/dxj/mapper/bookDAOImpl.xml"/>
+		<mapper resource="com/baizhi/dxj/mapper/userDAOImpl.xml"/>
+		<mapper resource="com/baizhi/dxj/mapper/orderDAOImpl.xml"/>
+	</mappers>
+</configuration>

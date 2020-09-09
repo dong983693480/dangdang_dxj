@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd" >
+<struts>
+	<package name="book" extends="struts-default">
+	<!-- 拦截器  -->
+	<interceptors>
+		<interceptor name="yz" class="com.baizhi.dxj.action.interceptor"></interceptor>
+		<interceptor-stack name="ljqz">
+			<interceptor-ref name="yz"></interceptor-ref>
+		</interceptor-stack>
+	</interceptors>
+	<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+		<action name="bookall" class="com.baizhi.dxj.action.bookAction" method="bookall">
+		<!-- 使用拦截器栈  -->
+		<interceptor-ref name="ljqz"></interceptor-ref>
+			<result name="bookall">/back/book/show.jsp</result>
+			<result name="no" type="redirect">/back/login.jsp</result>
+		</action>
+		<action name="mhselect" class="com.baizhi.dxj.action.bookAction" method="mhselect">
+			<result name="mhselect">/back/book/show.jsp</result>
+		</action>
+		<action name="deleteBook" class="com.baizhi.dxj.action.bookAction" method="deleteBook">
+			<result name="delete" type="redirectAction">bookall</result>
+		</action>
+		<action name="selectej" class="com.baizhi.dxj.action.bookAction" method="selectej">
+			<result name="tow">/back/book/add.jsp</result>
+		</action>
+		<action name="selectBookId" class="com.baizhi.dxj.action.bookAction" method="selectBookId">
+			<result name="selectOne" type="chain">selectej1</result>
+		</action>
+		<action name="selectej1" class="com.baizhi.dxj.action.bookAction" method="selectej1">
+			<result name="tow">/back/book/update.jsp</result>
+		</action>
+		<action name="addbook" class="com.baizhi.dxj.action.bookAction" method="addBook">
+			<result name="add" type="redirectAction">bookall</result>
+		</action>
+		
+		<action name="updatebook" class="com.baizhi.dxj.action.bookAction" method="updateBook">
+			<result name="update" type="redirectAction">bookall</result>
+		</action>
+	</package>
+</struts>

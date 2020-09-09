@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd" >
+<struts>
+	<package name="user" extends="struts-default">
+		<action name="userlogin" class="com.baizhi.dxj.action.userAction" method="userlogin">
+			<result name="login" type="chain">quanbu</result>
+			<result name="xxx" type="redirectAction">address</result>
+			<result name="no">/front/user/login_form.jsp</result>
+		</action>
+		<action name="quanbu" class="com.baizhi.dxj.action.userAction" method="quanbu">
+			<result name="quanbu">/front/main/aa.jsp</result>
+		</action>
+		<action name="selectBy" class="com.baizhi.dxj.action.userAction" method="selectBy">
+			<result name="selectOne">/front/main/book_list.jsp</result>
+			<result name="selecttwo">/front/main/book_list.jsp</result>
+		</action>
+		<action name="selecttwo" class="com.baizhi.dxj.action.userAction" method="selecttwo">
+			<result name="selecttwo">/front/main/book_list.jsp</result>
+		</action>
+		<action name="exit1" class="com.baizhi.dxj.action.userAction" method="exit1">
+			<result name="exit" type="redirectAction">quanbu</result>
+		</action>
+		<action name="selectBookId1" class="com.baizhi.dxj.action.userAction" method="selectBookId1">
+			<result name="selectOne">/front/main/book_detail.jsp</result>
+		</action>
+		<action name="adduser" class="com.baizhi.dxj.action.userAction" method="adduser">
+			<result name="ok">/front/user/verify_form.jsp</result>
+			<result name="no">/front/user/register_form.jsp</result>
+		</action>
+		<action name="updateuser" class="com.baizhi.dxj.action.userAction" method="updateuser">
+			<result name="ok">/front/user/register_ok.jsp</result>
+			<result name="no">/front/user/verify_form.jsp</result>
+		</action>
+		<action name="address" class="com.baizhi.dxj.action.userAction" method="address">
+			<result name="address">/front/order/address_form.jsp</result>
+			<result name="no">/front/user/login_form.jsp</result>
+		</action>
+		<action name="insertAddress" class="com.baizhi.dxj.action.userAction" method="insertAddress">
+			<result name="insert" type="redirectAction">xh</result>
+			<result name="nn" type="redirectAction">xh</result>
+			<result name="no" type="chain">address</result>
+		</action>
+		<action name="addressById" class="com.baizhi.dxj.action.userAction" method="addressById">
+			<result name="addressById" >/front/order/address_form.jsp</result>
+		</action>
+		<action name="xh" class="com.baizhi.dxj.action.userAction" method="xh">
+			<result name="xh">/front/order/order_ok.jsp</result>
+		</action>
+	</package>
+	
+	
+</struts>

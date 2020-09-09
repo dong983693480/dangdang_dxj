@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd" >
+<struts>
+	<package name="order" extends="struts-default">
+	<!-- 拦截器  -->
+	<interceptors>
+		<interceptor name="yz" class="com.baizhi.dxj.action.interceptor"></interceptor>
+		<interceptor-stack name="ljqz">
+			<interceptor-ref name="yz"></interceptor-ref>
+		</interceptor-stack>
+	</interceptors>
+	<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+		<action name="orderall" class="com.baizhi.dxj.action.orderAction" method="orderall">
+			<result name="orderall">/back/order/show.jsp</result>
+		</action>
+		<action name="itemall" class="com.baizhi.dxj.action.orderAction" method="itemall">
+			<result name="itemall">/back/order/detail.jsp</result>
+		</action>
+		
+		<action name="alluser" class="com.baizhi.dxj.action.orderAction" method="alluser">
+		<interceptor-ref name="ljqz"></interceptor-ref>
+			<result name="alluser">/back/user/show.jsp</result>
+			<result name="no" type="redirect">/back/login.jsp</result>
+		</action>
+		<action name="updateUser" class="com.baizhi.dxj.action.orderAction" method="updateUser">
+			<result name="updateUser" type="chain">alluser</result>
+		</action>
+		
+	</package>
+	
+</struts>

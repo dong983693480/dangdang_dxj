@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dxj.dao.orderDAO">
+	
+	<insert id="insertOrder" parameterType="d_order">
+		insert into d_order values(#{id},#{orde_number},#{ceate_Time},#{total_price},#{addr_id},#{user_id})
+	</insert>
+	<insert id="insertItem" parameterType="d_item">
+		insert into d_item values(#{id},#{price},#{count},#{amount},#{book_id},#{order_id})
+	</insert>
+	<select id="allorder" resultType="other">
+		 select  o.id id,o.order_number order_number,o.total_price total_price,
+		 a.name address_name,a.detail address_detail,o.create_time create_time
+		 from d_order o left join d_address a on a.id=o.addr_id
+	</select>
+	<select id="allorder1" resultType="other1">
+		select o.order_number order_number,o.total_price allprice,
+      b.book_name book_name, b.src src,b.price price,b.dd_price dd_price
+      ,i.count count from d_order o 
+     left join d_item i on i.order_id=o.id
+     left join d_book b on b.id= i.book_id
+    where o.id = #{id}
+	</select>
+	<update id="updateuser" parameterType="d_user">
+		update d_user set status =#{status} where id=#{id}
+	</update>
+	<select id="allUser" resultType="d_user">
+		select * from d_user
+	</select>
+	<select id="selectone" resultType="d_user" parameterType="String">
+		select * from d_user where id=#{id}
+	</select>
+</mapper>

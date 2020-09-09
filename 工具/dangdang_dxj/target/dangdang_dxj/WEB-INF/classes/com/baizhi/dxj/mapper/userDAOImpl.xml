@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dxj.dao.userDAO">
+	
+	<select id="loginuser" resultType="d_user">
+		select * from d_user where email=#{email}
+	</select>
+	<select id="tuijian" resultType="d_book">
+		select * from(select d.* ,rownum r from (select *from d_book d order by e_recommend) d order by e_recommend)where r between 1 and 2
+	</select>
+	<select id="shijian" resultType="d_book">
+		select * from(select d.* ,rownum r from (select *from d_book d order by publish_time desc) d)where r between 1 and 8
+	</select>
+	<select id="xiaoliang" resultType="d_book">
+		select * from(select d.* ,rownum r from (select *from d_book d order by sale_count desc) d)where r between 1 and 8
+	</select>
+	<select id="xiaoliang1" resultType="d_book">
+		select * from(select d.* ,rownum r from (select * from (select * from d_book where publish_time between add_months(sysdate,-18) and sysdate)
+		 d order by sale_count desc) d)where r between 1 and 8
+	</select>
+	<!-- 导航栏 -->
+	<select id="selectoneBook" parameterType="String" resultType="d_book">
+		select d.* from d_book d left join d_category dd on dd.id=d.cate_id 
+			 left join d_category ddd on ddd.id=dd.parent_id where ddd.id=#{id} 
+	</select>
+	<select id="selecttwoBook" parameterType="String" resultType="d_book">
+		select d.* from d_book d left join d_category dd on dd.id=d.cate_id
+			left join d_category ddd on ddd.id=dd.parent_id where ddd.id=#{pid} and dd.id=#{id}
+	</select>
+	<select id="book1" resultType="d_book">
+		select s.* from (select d.*,rownum r from d_book d left join d_category dd on dd.id=d.cate_id 
+			 left join d_category ddd on ddd.id=dd.parent_id where ddd.id=#{id})s where r between ${star} and ${end}
+	</select>
+	<select id="book2" resultType="d_book">
+		select s.* from (select d.*,rownum r from d_book d left join d_category dd on dd.id=d.cate_id 
+			 left join d_category ddd on ddd.id=dd.parent_id where ddd.id=#{pid} and dd.id=#{id} )s 
+			 where r between ${start} and ${end}
+	</select>
+	<select id="count1" resultType="Integer" parameterType="String">
+		select count(*) from (select d.* from d_book d left join d_category dd on dd.id=d.cate_id 
+ left join d_category ddd on ddd.id=dd.parent_id where ddd.id=#{id})
+	</select>
+	<select id="count2" resultType="Integer">
+		select count(*) from (select d.* from d_book d left join d_category dd on dd.id=d.cate_id 
+ left join d_category ddd on ddd.id=dd.parent_id where ddd.id=#{pid} and dd.id=#{id})
+	</select>
+	<!--  用户注册  -->
+	<insert id="adduser" parameterType="d_user" >
+		insert into d_user values(#{id},#{nick_name},#{email},#{password},#{status},#{regist_time},#{salt})
+	</insert>
+	
+	<update id="update11" parameterType="d_user">
+		update d_user set status=#{status} where id=#{id}
+	</update>
+	
+	<!--  地址  -->
+	<select id="selectaddress" resultType="d_address" parameterType="String">
+		select * from d_address where user_id=#{user_id}
+	</select>
+	<insert id="insertAddress">
+		insert into d_address values(#{id},#{name},#{detail},#{zip_code},#{phone},#{mobile},#{user_id})
+	</insert>
+	<select id="queryAddressId" resultType="d_address" parameterType="String">
+		select * from d_address where id=#{id}
+	</select>
+</mapper>

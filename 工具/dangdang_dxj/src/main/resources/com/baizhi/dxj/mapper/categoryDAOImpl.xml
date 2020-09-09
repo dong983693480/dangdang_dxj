@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dxj.dao.categoryDAO">
+	
+	<resultMap type="d_category" id="x1">
+		<id column="d_id" property="id"/>
+		<result column="d_cate_name" property="cate_name"/>
+		<result column="d_count" property="count"/>
+		<result column="d_parent_id" property="parent_id"/>
+		<result column="d_levels" property="levels"/>
+		
+		<collection property="d" ofType="d_category">
+			<id column="f_id" property="id"/>
+			<result column="f_cate_name" property="cate_name"/>
+			<result column="f_count" property="count"/>
+			<result column="f_parent_id" property="parent_id"/>
+			<result column="f_levels" property="levels"/>
+		</collection>
+	</resultMap>
+	<select id="all" resultMap="x1">
+		select d.id d_id,d.cate_name d_cate_name,d.count d_count,d.parent_id d_parent_id,d.levels d_levels,
+ 		f.id f_id,f.cate_name f_cate_name,f.count f_count,f.parent_id f_parent_id,f.levels f_levels from
+ 		 d_category d left join d_category f on d.id=f.parent_id where d.parent_id='0'
+	</select>
+	<!--  删除 -->
+	<delete id="delete" parameterType="String">
+		delete from d_category where id=#{id}
+	</delete>
+	<!-- 添加第一类别 -->
+	<insert id="selectOne" parameterType="d_category">
+		insert into d_category values(#{id},#{cate_name},#{count},#{parent_id},#{levels})
+	</insert>
+	<!-- 添加第二类别 -->
+ 	<insert id="createej" >
+ 		insert into d_category values(#{id},#{cate_name},#{count},#{parent_id},#{levels})
+ 	</insert>
+ 	<!-- 查询所有的一级类别  -->
+ 	<select id="select" resultType="d_category">
+ 		select * from d_category where levels=1
+ 	</select>
+ 	<!-- 根据名字查询一级类别  -->
+ 	<select id="select1" parameterType="String" resultType="d_category">
+ 		select * from d_category where cate_name=#{cate_name}
+ 	</select>
+</mapper>
